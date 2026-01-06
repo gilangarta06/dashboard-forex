@@ -31,11 +31,20 @@ export function SignalsPanel() {
         )
         const forexData = await forexResponse.json()
 
-        // Fetch gold price
-        const metalResponse = await fetch(
-          "https://api.metals.live/v1/spot/gold"
-        )
-        const metalData = await metalResponse.json()
+        // Fetch gold price with fallback
+        let goldPrice = "2,658.10"
+        try {
+          const metalResponse = await fetch(
+            "https://api.metals.live/v1/spot/gold",
+            { mode: 'cors' }
+          )
+          if (metalResponse.ok) {
+            const metalData = await metalResponse.json()
+            goldPrice = metalData[0]?.price ? metalData[0].price.toFixed(2) : "2,658.10"
+          }
+        } catch (metalError) {
+          console.warn("Gold price API unavailable, using fallback")
+        }
 
         const updatedSignals: Signal[] = [
           {
@@ -50,7 +59,7 @@ export function SignalsPanel() {
           {
             pair: "XAU/USD",
             type: "SELL",
-            price: metalData[0]?.price ? metalData[0].price.toFixed(2) : "2,658.10",
+            price: goldPrice,
             tp: "2,642.00",
             sl: "2,668.50",
             status: "Active",
@@ -79,6 +88,7 @@ export function SignalsPanel() {
         setSignals(updatedSignals)
       } catch (error) {
         console.error("Error fetching price data:", error)
+        // Keep using loading state if fetch fails completely
       }
     }
 

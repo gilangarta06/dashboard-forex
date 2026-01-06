@@ -54,11 +54,9 @@ export default function TradingDashboard() {
       {/* Top Header */}
       <header className="h-24 glass flex items-center justify-between px-10 border-b border-white/5 z-20">
         <div className="flex items-center gap-6">
-          <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center rotate-45 glow-green">
-            <div className="-rotate-45 font-black text-primary-foreground text-2xl">AG</div>
-          </div>
+          <img src="/IMG_0452.png" alt="Ruang Trader Community Logo" className="w-16 h-16 object-contain" />
           <div>
-            <h1 className="text-3xl font-black tracking-tighter leading-none italic uppercase">AG Forex</h1>
+            <h1 className="text-3xl font-black tracking-tighter leading-none italic uppercase">Ruang Trader Community</h1>
             <span className="text-primary font-mono text-sm tracking-[0.3em] font-bold">TRADING TERMINAL</span>
           </div>
         </div>
